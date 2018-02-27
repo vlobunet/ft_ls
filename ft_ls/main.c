@@ -39,24 +39,40 @@ int ft_ch_dr (const char *dir_name)
 		return (1);
 }
 
-void	ft_lstadd_s(t_list **cur, t_list *new_lst)
+void    ft_lstadd_s(t_list **cur, char *new_lst)
 {
-	int i;
+    int num;
+
 	if (!*cur)
 		return ;
-	i = ft_strcmp((*cur)->content, new_lst->content);
-	printf("(*cur)|new : %s | %s\n", (*cur)->content, new_lst->content);
-	printf("%d\n", i);
-	// {
-	// 	printf("ok\n");
-	// 	*cur = (*cur)->next;
-	// }
+	if ((strcmp((*cur)->content, (*cur)->next->content) == 0) 
+		&& ((*cur)->num == (*cur)->next->num))
+			return ;
+	// printf("%s ", (*cur)->content);
+	while (strcmp((*cur)->content, (*cur)->next->content) > 0)
+	{
+		*cur = (*cur)->next;
+		// printf(">>>> %s", (*cur)->content);
+	}	
+	num = (*cur)->prev->num;
+	while ((*cur)->num != num 
+		&& strcmp((*cur)->content, new_lst) < 0 
+		&& strcmp((*cur)->content, (*cur)->next->content) < 0)
+	{
+		*cur = (*cur)->next;
+		// printf(">> %s", (*cur)->content);
+	}
+	if (strcmp((*cur)->content, new_lst) > 0)
+	{
+		*cur = (*cur)->prev;
+		// printf(" << %s", (*cur)->content); 
+	}
 }
+
 
 void	lst_print(t_list **lst)
 {
-	printf("(*lst)->content : %s\n", (*lst)->content);
-	printf("(*lst)->num: %d\n", (*lst)->num);
+	printf(" %s", (*lst)->content);
 }
 
 int main(int argc, char **argv)
@@ -75,10 +91,18 @@ int main(int argc, char **argv)
 		argv++;
 		while (i < argc && (*argv)[0] == '-' && (*argv)[1] != '\0')
 		{
-			ft_lstadd_s(&lst_param, ft_lstnew(i++, *argv));
-			printf("->\n");
+			// printf(" -> %s\n", *argv);
+			ft_lstadd_s(&lst_param, *argv);
+			// printf("\n*\n");
 			ft_lstadd(&lst_param, ft_lstnew(i++, *argv++));
 		}
+		lst_print(&lst_param);
+		lst_param = lst_param->next;
+		lst_print(&lst_param);
+		lst_param = lst_param->next;
+		lst_print(&lst_param);
+		lst_param = lst_param->next;
+		lst_print(&lst_param);
 		lst_param = lst_param->next;
 		lst_print(&lst_param);
 		lst_param = lst_param->next;
@@ -87,6 +111,18 @@ int main(int argc, char **argv)
 		lst_print(&lst_param);
 		lst_param = lst_param->next;
 		lst_print(&lst_param);
+		lst_param = lst_param->next;
+		lst_print(&lst_param);
+		lst_param = lst_param->next;
+		lst_print(&lst_param);
+		lst_param = lst_param->next;
+		lst_print(&lst_param);
+		lst_param = lst_param->next;
+		lst_print(&lst_param);
+		lst_param = lst_param->next;
+		// printf("\n%d\n", strcmp("t4", "t5"));
+
+		
 		// while (i < argc)
 		// {
 		// 	if (!ft_ch_dr(*argv))
