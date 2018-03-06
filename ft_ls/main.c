@@ -28,108 +28,129 @@ void ft_ls (const char *dir_name)
 	}
 }
 
-int ft_ch_dr (const char *dir_name)
-{
-	DIR *d;
+// int ft_ch_dr (const char *dir_name)
+// {
+// 	DIR *d;
 
-	d = opendir(dir_name);
-	if (!d)
-		return (0);
-	else
-		return (1);
-}
+// 	d = opendir(dir_name);
+// 	if (!d)
+// 		return (0);
+// 	else
+// 		return (1);
+// }
+// void	lst_print(t_list **lst)
+// {
+// 	printf(" %s", (*lst)->content);
+// }
 
 void    ft_lstadd_s(t_list **cur, char *new_lst)
 {
-    int num;
+	int num;
 
-	if (!*cur)
+	if (!*cur || (!(*cur)->next))
 		return ;
-	if ((strcmp((*cur)->content, (*cur)->next->content) == 0) 
-		&& ((*cur)->num == (*cur)->next->num))
-			return ;
-	// printf("%s ", (*cur)->content);
-	while (strcmp((*cur)->content, (*cur)->next->content) > 0)
-	{
+	while (strcmp((*cur)->content, (*cur)->next->content) < 0)
 		*cur = (*cur)->next;
-		// printf(">>>> %s", (*cur)->content);
-	}	
-	num = (*cur)->prev->num;
-	while ((*cur)->num != num 
-		&& strcmp((*cur)->content, new_lst) < 0 
-		&& strcmp((*cur)->content, (*cur)->next->content) < 0)
-	{
+	if (strcmp(new_lst, (*cur)->next->content) < 0)
+		return ;
+	num = (*cur)->num;
+	*cur = (*cur)->next;
+	while (strcmp(new_lst, (*cur)->content) > 0 && num != (*cur)->num)
 		*cur = (*cur)->next;
-		// printf(">> %s", (*cur)->content);
-	}
-	if (strcmp((*cur)->content, new_lst) > 0)
-	{
+	if (strcmp(new_lst, (*cur)->content) < 0)
 		*cur = (*cur)->prev;
-		// printf(" << %s", (*cur)->content); 
+}
+
+int		ft_ch_sumb(char *str, char s)
+{
+	while (*str)
+		if (s == *str++)
+			return (1);
+	return (0);
+}
+
+void	ft_get_pr(t_param *lst_pr, char *param)
+{
+	int		i;
+
+	i = 1;
+	while (param[i])
+	{
+		if (ft_ch_sumb("1lRafgrtu", param[i]))
+		{
+			param[i] == 'l' ? lst_pr->l = 1 : 0;
+			param[i] == 'R' ? lst_pr->R = 1 : 0;
+			param[i] == 'a' ? lst_pr->a = 1 : 0;
+			param[i] == 'r' ? lst_pr->r = 1 : 0;
+			param[i] == 't' ? lst_pr->t = 1 : 0;
+			param[i] == 'u' ? lst_pr->u = 1 : 0;
+			param[i] == 'f' ? lst_pr->f = 1 : 0;
+			param[i] == 'g' ? lst_pr->g = 1 : 0;
+			i++;
+		}
+		else printf("ERROR_PARAM\n");
+	}
+}
+
+void	ft_parsing(int argc, char **argv, t_list **lst_dr, t_param *lst_pr)
+{
+	int	i = 0;
+
+	argv++;
+	while (i < (argc - 1) && (*argv)[0] == '-' && (*argv)[1])
+	{
+		ft_get_pr(lst_pr, *argv++);
+		i++;
+	}
+	while (i < argc - 1)
+	{
+		ft_lstadd_s(lst_dr, *argv);
+		ft_lstadd(lst_dr, ft_lstnew(i++, *argv++));
 	}
 }
 
 
-void	lst_print(t_list **lst)
-{
-	printf(" %s", (*lst)->content);
-}
 
 int main(int argc, char **argv)
 {
-	int	i;
 
-	t_list	*lst_param;
-	// t_list	*lst_dr;
-	// t_list	*lst_error;
-	i = 1;
+	t_list	*lst_dr;
+	t_param lst_pr;
+
+	lst_pr = (t_param){0, 0, 0, 0, 0, 0, 0, 0};
+	lst_dr = NULL;
 
 	if (argc == 1)
 		ft_ls(".");
 	else
 	{
-		argv++;
-		while (i < argc && (*argv)[0] == '-' && (*argv)[1] != '\0')
-		{
-			// printf(" -> %s\n", *argv);
-			ft_lstadd_s(&lst_param, *argv);
-			// printf("\n*\n");
-			ft_lstadd(&lst_param, ft_lstnew(i++, *argv++));
-		}
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		lst_print(&lst_param);
-		lst_param = lst_param->next;
-		// printf("\n%d\n", strcmp("t4", "t5"));
-
-		
-		// while (i < argc)
-		// {
-		// 	if (!ft_ch_dr(*argv))
-		// 		ft_lstadd(&lst_error, ft_lstnew(i++, *argv++));
-		// 	else
-		// 		ft_lstadd(&lst_dr, ft_lstnew(i++, *argv++));
-		// }
+		ft_parsing(argc, argv, &lst_dr, &lst_pr);
+		if (lst_dr == NULL)
+			printf("no dr\n");
+		lst_pr.l == 1 ? printf("lst_pr.l == 1\n") : 0;
+		lst_pr.R == 1 ? printf("lst_pr.R == 1\n") : 0;
+		lst_pr.a == 1 ? printf("lst_pr.a == 1\n") : 0;
+		lst_pr.r == 1 ? printf("lst_pr.r == 1\n") : 0;
+		lst_pr.t == 1 ? printf("lst_pr.t == 1\n") : 0;
+		lst_pr.u == 1 ? printf("lst_pr.u == 1\n") : 0;
+		lst_pr.f == 1 ? printf("lst_pr.f == 1\n") : 0;
+		lst_pr.g == 1 ? printf("lst_pr.g == 1\n") : 0;
 	}
 	return 0;
 }
+		// argv++;
+		// while (i < argc && (*argv)[0] == '-' && (*argv)[1] != '\0')
+		// 	ft_lstadd(&lst_param, ft_lstnew(i++, *argv++));
+		// while (i < argc)
+		// {
+		// 	if (!ft_ch_dr(*argv))
+		// 	{
+		// 		ft_lstadd_s(&lst_error, *argv);
+		// 		ft_lstadd(&lst_error, ft_lstnew(i++, *argv++));
+		// 	}
+		// 	else
+		// 	{
+		// 		ft_lstadd_s(&lst_dr, *argv);
+		// 		ft_lstadd(&lst_dr, ft_lstnew(i++, *argv++));
+		// 	}
+		// }

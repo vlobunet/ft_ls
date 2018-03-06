@@ -1,5 +1,5 @@
 clear
-printf "\e[8;50;80;t"
+printf "\e[8;80;80;t"
 printf "                    \e[93m-C libft/ fclean && make -C libft/\e[92m\n"
 echo -n "         "       
 make -C libft/ fclean && make -C libft/
@@ -21,4 +21,4 @@ printf "\e[93m/*                                                                
 printf "\e[93m/* ************************************************************************** */\e[0m\n"
 printf "\n"
 printf "\e[97m  ================================ ./ft_ls ===============================\e[39m  \n"
-./ft_ls -t4 -t6 -t2 -t1 -t5 -t0
+./ft_ls -l -lR1 -1 -a -u a2 a4 a6 a1 a8 a3 a0 a5

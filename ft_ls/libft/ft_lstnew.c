@@ -19,7 +19,7 @@ t_list	*ft_lstnew(int num, char *str)
 	lst = (t_list *)malloc(sizeof(t_list));
 	lst->num = num;
 	lst->content = ft_strdup(str);
-	lst->prev = lst;
-	lst->next = lst;
+	lst->prev = NULL;
+	lst->next = NULL;
 	return (lst);
 }
