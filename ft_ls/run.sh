@@ -1,12 +1,8 @@
 clear
 printf "\e[8;80;80;t"
-printf "                    \e[93m-C libft/ fclean && make -C libft/\e[92m\n"
+printf "                              \e[93mmake fclean && make \e[92m\n"
 echo -n "         "       
-make -C libft/ fclean && make -C libft/
-printf "       \e[93m-Wall -Wextra -Werror -I libft/includes -o main.o -c main.c\e[92m\n"
-clang -Wall -Wextra -Werror -I libft/includes -o main.o -c main.c
-printf "           \e[93m-o ft_ls main.o -I libft/includes -L libft/ -lft\e[92m\n"
-clang -o ft_ls main.o -I libft/includes -L libft/ -lft
+make fclean && make 
 printf "\n"
 printf "\e[93m/* ************************************************************************** */\e[0m\n"
 printf "\e[93m/*                                                                            */\e[0m\n"
