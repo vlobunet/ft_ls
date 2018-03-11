@@ -17,4 +17,4 @@ printf "\e[93m/*                                                                
 printf "\e[93m/* ************************************************************************** */\e[0m\n"
 printf "\n"
 printf "\e[97m  ================================ ./ft_ls ===============================\e[39m  \n"
-./ft_ls -l -lR1 -1 -a -u a2 a4 a6 a1 a8 a3 a0 a5
+./ft_ls -l -lR1 -1 -a -u main.c libft new_file ft_lstadd_s.c main.o libft/includes open
