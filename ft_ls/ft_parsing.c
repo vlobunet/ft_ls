@@ -25,15 +25,18 @@ void	ft_get_pr(t_param *lst_pr, char *param)
 	{
 		if (ft_ch_sumb("1lRafgrtu", param[i]))
 		{
-			param[i] == 'l' ? lst_pr->l = 1 : 0;
-			param[i] == 'R' ? lst_pr->R = 1 : 0;
-			param[i] == 'a' ? lst_pr->a = 1 : 0;
-			param[i] == 'r' ? lst_pr->r = 1 : 0;
-			param[i] == 't' ? lst_pr->t = 1 : 0;
-			param[i] == 'u' ? lst_pr->u = 1 : 0;
-			param[i] == 'f' ? lst_pr->f = 1 : 0;
-			param[i] == 'g' ? lst_pr->g = 1 : 0;
-		} 
+			lst_pr->l = (param[i] == 'l' ? 1 : lst_pr->l);
+			lst_pr->R = (param[i] == 'R' ? 1 : lst_pr->R);
+			lst_pr->a = (param[i] == 'a' ? 1 : lst_pr->a);
+			lst_pr->r = (param[i] == 'r' ? 1 : lst_pr->r);
+			lst_pr->t = (param[i] == 't' ? 1 : lst_pr->t);
+			lst_pr->u = (param[i] == 'u' ? 1 : lst_pr->u);
+			lst_pr->f = (param[i] == 'f' ? 1 : lst_pr->f);
+			lst_pr->l = (param[i] == 'f' ? 0 : lst_pr->l);
+			lst_pr->a = (param[i] == 'f' ? 1 : lst_pr->a);
+			lst_pr->g = (param[i] == 'g' ? 1 : lst_pr->g);
+			lst_pr->l = (param[i] == '1' ? 0 : lst_pr->l);
+		}
 		else error_arg(param[i]);
 		i++;
 	}
@@ -49,9 +52,9 @@ void	ft_parsing(int argc, char **argv, t_list **lst_dr, t_param *lst_pr)
 		ft_get_pr(lst_pr, *argv++);
 		i++;
 	}
-	while (i < argc - 1)
+	while (i < (argc - 1))
 	{
 		ft_lstadd_s(lst_dr, *argv);
-		ft_lstadd(lst_dr, ft_lstnew(i++, *argv++));
+		ft_lstadd(lst_dr, ft_lstnew_el(i++, *argv++, *lst_pr));
 	}
 }
