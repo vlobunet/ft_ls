@@ -1,5 +1,13 @@
 #include "ft_ls.h"
 
+void	error_arg(char arg)
+{
+	ft_putstr("ft_ls: illegal option -- ");
+	ft_putchar(arg);
+	ft_putstr("\nusage: ft_ls [-Rafglrtu1] [file ...]\n");
+	exit(EXIT_FAILURE);
+}
+
 int		ft_ch_sumb(char *str, char s)
 {
 	while (*str)
@@ -25,9 +33,9 @@ void	ft_get_pr(t_param *lst_pr, char *param)
 			param[i] == 'u' ? lst_pr->u = 1 : 0;
 			param[i] == 'f' ? lst_pr->f = 1 : 0;
 			param[i] == 'g' ? lst_pr->g = 1 : 0;
-			i++;
 		} 
-		else printf("ERROR_PARAM\n");
+		else error_arg(param[i]);
+		i++;
 	}
 }
 

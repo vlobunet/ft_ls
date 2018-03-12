@@ -17,11 +17,31 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <inttypes.h>
+# include <dirent.h>
+# include <sys/stat.h>
+# include <time.h>
+# include <stdio.h>
+# include <sys/types.h>
+# include <pwd.h>
+# include <uuid/uuid.h>
+# include <grp.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <errno.h>
 
 typedef struct		s_list
 {
 	char			*content;
 	int				num;
+	time_t			date;
+	mode_t			st_mode;
+	nlink_t			st_nlink;
+	uid_t			st_uid;
+	gid_t			st_gid;
+	off_t			st_size;
+	quad_t			st_blocks;
+	dev_t			st_rdev;
 	struct s_list	*prev;
 	struct s_list	*next;
 }					t_list;
