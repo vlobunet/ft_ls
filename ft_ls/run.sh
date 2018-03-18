@@ -17,4 +17,4 @@ printf "\e[93m/*                                                                
 printf "\e[93m/* ************************************************************************** */\e[0m\n"
 printf "\n"
 printf "\e[97m  ================================ ./ft_ls ===============================\e[39m  \n"
-./ft_ls -l -lR1 -1 -a -u main.c libft new_file ft_lstadd_s.c main.o libft/includes open
+./ft_ls -l libft main.c main.o errorfile err erroria

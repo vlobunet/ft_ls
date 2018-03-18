@@ -11,8 +11,9 @@
 # **************************************************************************** #
 
 NAME	= ft_ls
-SRCS	=	main.c ft_ls.c ft_parsing.c \
-			ft_lstadd_s.c
+SRCS	=	main.c ft_parsing.c \
+			ft_lstadd_s.c get_size.c display_1.c \
+			display_2.c display_3.c
 OBJS	= $(SRCS:.c=.o)
 FLAGS	= -Wall -Wextra -Werror
 

@@ -1,46 +1,5 @@
 #include "ft_ls.h"
 
-// void	display_file(t_param param, t_list *files, int fileordir)
-// {
-// 	if ((param.l == 1 || param.g == 1))
-// 			ls_long(param, files, fileordir);
-// 	else
-// 			ls_simple(param, files);
-// 	param.upper_r == 1 ? recursion(param, files) : NULL;
-// }
-
-void	ft_access(t_list *lst)
-{
-	ft_putchar((S_ISFIFO(lst->st_mode)) ? 'p' : 0);
-	ft_putchar((S_ISCHR(lst->st_mode)) ? 'c' : 0);
-	ft_putchar((S_ISDIR(lst->st_mode)) ? 'd' : 0);
-	ft_putchar((S_ISBLK(lst->st_mode)) ? 'b' : 0);
-	ft_putchar((S_ISREG(lst->st_mode)) ? '-' : 0);
-	ft_putchar((S_ISLNK(lst->st_mode)) ? 'l' : 0);
-	ft_putchar((S_ISSOCK(lst->st_mode)) ? 's' : 0);
-	ft_putchar((lst->st_mode & S_IRUSR) ? 'r' : '-');
-	ft_putchar((lst->st_mode & S_IWUSR) ? 'w' : '-');
-	ft_putchar((lst->st_mode & S_IXUSR) ? 'x' : '-');
-	ft_putchar((lst->st_mode & S_IRGRP) ? 'r' : '-');
-	ft_putchar((lst->st_mode & S_IWGRP) ? 'w' : '-');
-	ft_putchar((lst->st_mode & S_IXGRP) ? 'x' : '-');
-	ft_putchar((lst->st_mode & S_IROTH) ? 'r' : '-');
-	ft_putchar((lst->st_mode & S_IWOTH) ? 'w' : '-');
-	ft_putchar((lst->st_mode & S_IXOTH) ? 'x' : '-');
-	ft_putstr("  ");
-}
-
-void	print_int(t_list *lst)
-{
-	int		n;
-
-	n = ft_strlen(ft_itoa(lst->st_nlink));
-	while (n-- > 0)
-		ft_putchar(' ');
-	ft_putnbr((*lst).st_nlink);
-	ft_putstr(" ");
-}
-
 t_list	*ft_lstnew_el(int num, char *str, t_param p)
 {
 	t_list *lst;
@@ -63,57 +22,59 @@ t_list	*ft_lstnew_el(int num, char *str, t_param p)
 	return (lst);
 }
 
-void	ft_error_name(char *name, char *error, int ex)
-{
-	ft_putstr(name);
-	perror(error);
-	ex ? exit(EXIT_FAILURE) : 0;
-}
-void s1 (char *content, t_list **file, t_list **dir, int i, t_param lst_pr)
+int s1(char *content, t_list **file, t_list **dir, int i, t_param lst_pr)
 {
 	DIR		*d;
 
 	if ((d = opendir(content)) == NULL && errno != ENOTDIR)
-		ft_error_name("ft_ls: ", content, 0);
+		return (0);
 	else if ((d = opendir(content)) == NULL && errno == ENOTDIR)
 	{
+
 		ft_lstadd_s(file, content);
-    	ft_lstadd(file, ft_lstnew_el(i++, content, lst_pr));
-    	ft_access(*file);
-    	print_int(*file);
-    	printf("%s\n", (*file)->content);
+		ft_lstadd(file, ft_lstnew_el(i++, content, lst_pr));
 	}
 	else if ((d = opendir(content)) != NULL)
 	{
 		ft_lstadd_s(dir, content);
-    	ft_lstadd(dir, ft_lstnew_el(i++, content, lst_pr));
-    	ft_access(*dir);
-    	print_int(*dir);
-    	printf("%s\n", (*dir)->content);
+		ft_lstadd(dir, ft_lstnew_el(i++, content, lst_pr));
 		closedir(d);
 	}
+	return (1);
+}
+
+void add_elem(char *content, t_list **lst, int i, t_param lst_pr)
+{
+	ft_lstadd_s(lst, content);
+	ft_lstadd(lst, ft_lstnew_el(i++, content, lst_pr));
 }
 
 void	core(t_param lst_pr, t_list *lst_dr, int multidir)
 {
 	t_list	*lst_file;
 	t_list	*lst_dir;
+	t_list	*lst_err;
 	int num; 
-	int i = 0;
+	int i;
 
+	i = 0;
 	lst_file = NULL;
 	lst_dir = NULL;
-	multidir = 0;
+	lst_err = NULL;
+	multidir = 0; // убрать
 	(lst_dr->prev) ? (num = lst_dr->prev->num) : (num = lst_dr->num);
 	while (num != lst_dr->num)
 	{
-		s1(lst_dr->content, &lst_file, &lst_dir, i++, lst_pr);
+		!s1(lst_dr->content, &lst_file, &lst_dir, i++, lst_pr) ? \
+			add_elem(lst_dr->content, &lst_err, i, lst_pr) : 0;
 		lst_dr = lst_dr->next;
 	}
-	s1(lst_dr->content, &lst_file, &lst_dir, i++, lst_pr);
-	lst_file ? printf("lst_file\n") : 0;
+	!s1(lst_dr->content, &lst_file, &lst_dir, i++, lst_pr) ? \
+		add_elem(lst_dr->content, &lst_err, i, lst_pr) : 0;
+	lst_err ? print_error_el(&lst_err): 0;
+	lst_file ? print_fie(lst_file, lst_pr) : 0;
 	lst_file && lst_dir ? ft_putchar('\n') : 0;
-	lst_dir ? printf("lst_dir\n") : 0;
+	// lst_dir ? print_dir(lst_dir, lst_pr) : 0;
 }
 
 int		main(int argc, char **argv)
