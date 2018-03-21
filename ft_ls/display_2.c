@@ -22,19 +22,22 @@ void	print_error_el(t_list **lst_err)
 {
 	DIR		*d;
 	int num;
-
-	while (ft_strcmp((*lst_err)->content, (*lst_err)->next->content) < 0)
-		*lst_err =(*lst_err)->next;
-	*lst_err =(*lst_err)->next;
-	num = (*lst_err)->prev->num;
-	while (num != (*lst_err)->num)
+	
+	if ((*lst_err)->next)
 	{
-		if ((d = opendir((*lst_err)->content)) == NULL && errno != ENOTDIR)
-			ft_error_name("ft_ls: ", (*lst_err)->content, 0);
+		while (ft_strcmp((*lst_err)->content, (*lst_err)->next->content) < 0)
+			*lst_err =(*lst_err)->next;
 		*lst_err =(*lst_err)->next;
+		num = (*lst_err)->prev->num;
+		while (num != (*lst_err)->num)
+		{
+			if ((d = opendir((*lst_err)->content)) == NULL && errno != ENOTDIR)
+				ft_error_name("ft_ls: ", (*lst_err)->content, 0);
+			*lst_err =(*lst_err)->next;
+		}
 	}
 	if ((d = opendir((*lst_err)->content)) == NULL && errno != ENOTDIR)
-			ft_error_name("ft_ls: ", (*lst_err)->content, 0);
+				ft_error_name("ft_ls: ", (*lst_err)->content, 0);
 }
 
 void	ft_error_name(char *name, char *error, int ex)

@@ -41,6 +41,7 @@ typedef struct		s_size
 	int				maj;
 }					t_size;
 
+
 void	ft_ls(const char *dir_name);
 void	ft_get_pr(t_param *lst_pr, char *param);
 void	ft_lstadd_s(t_list **cur, char *new_lst);
