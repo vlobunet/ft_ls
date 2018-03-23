@@ -33,6 +33,7 @@
 typedef struct		s_list
 {
 	char			*content;
+	char			*path;
 	int				num;
 	time_t			date;
 	mode_t			st_mode;

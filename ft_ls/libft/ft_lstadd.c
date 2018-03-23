@@ -14,9 +14,7 @@
 
 void    ft_lstadd(t_list **alst, t_list *new_lst)
 {
-    if (!*alst)
-        *alst = new_lst;
-    else
+    if (*alst)
     {
         new_lst->next = (*alst)->next;
         new_lst->prev = *alst;

@@ -55,6 +55,6 @@ void	ft_parsing(int argc, char **argv, t_list **lst_dr, t_param *lst_pr)
 	while (i < (argc - 1))
 	{
 		ft_lstadd_s(lst_dr, *argv);
-		ft_lstadd(lst_dr, ft_lstnew_el(i++, *argv++, *lst_pr));
+		ft_lstadd(lst_dr, ft_lstnew_el(i++, *argv++, *lst_pr, ""));
 	}
 }

@@ -1,5 +1,5 @@
 clear
-printf "\e[8;80;80;t"
+printf "\e[8;115;90;t"
 printf "                              \e[93mmake fclean && make \e[92m\n"
 echo -n "         "       
 make fclean && make 
@@ -17,4 +17,3 @@ printf "\e[93m/*                                                                
 printf "\e[93m/* ************************************************************************** */\e[0m\n"
 printf "\n"
 printf "\e[97m  ================================ ./ft_ls ===============================\e[39m  \n"
-./ft_ls -l main.c errorf4 main.o test errorf1 test1 test

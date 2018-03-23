@@ -21,11 +21,11 @@ void	ft_access(t_list *lst)
 	ft_putstr("  ");
 }
 
-void	print_lnk(t_list *lst)
+void	print_lnk(t_list *lst, int x)
 {
 	int		n;
 
-	n = 3 - ft_strlen(ft_itoa(lst->st_nlink));
+	n = x - ft_strlen(ft_itoa(lst->st_nlink));
 	while (n-- > 0)
 		ft_putchar(' ');
 	ft_putnbr((*lst).st_nlink);
