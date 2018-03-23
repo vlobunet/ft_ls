@@ -52,21 +52,24 @@ int		s1(char *content, t_list **file, t_list **dir, t_param lst_pr)
 {
 	DIR			*d;
 
-	if ((d = opendir(content)) == NULL && errno != ENOTDIR)
+	d = opendir(content);
+	if (d == NULL && errno != ENOTDIR)
+	{
 		return (0);
-	else if ((d = opendir(content)) == NULL && errno == ENOTDIR)
+	}
+	else if (d == NULL && errno == ENOTDIR)
 	{
 		ft_lstadd_s(file, content);
 		ft_lstadd(file, ft_lstnew_el(g_count++, content, lst_pr, ""));
 	}
-	else if ((d = opendir(content)) != NULL)
+	else if (d != NULL)
 	{
 		ft_lstadd_s(dir, content);
 		ft_lstadd(dir, ft_lstnew_el(g_count++, content, lst_pr, ""));
 		closedir(d);
 	}
 	printf("%s\n", content);
-	// ft_strdel(&content);
+	ft_strdel(&content);
 	return (1);
 }
 
@@ -153,6 +156,7 @@ void	core(t_param lst_pr, t_list *lst_dr, int m)
 			add_elem(lst_dr->content, &lst_err, g_count++, lst_pr) : 0;
 		lst_dr = lst_dr->next;
 	}
+
 	!s1(lst_dr->content, &lst_file, &lst_dir, lst_pr) ? \
 		add_elem(lst_dr->content, &lst_err, g_count++, lst_pr) : 0;
 	lst_err ? print_error_el(lst_err) : 0;
@@ -173,6 +177,6 @@ int		main(int argc, char **argv)
 		ft_parsing(argc, argv, &lst_dr, &lst_pr);
 	!lst_dr ? ft_lstadd(&lst_dr, ft_lstnew_el(1, ".", lst_pr, "")) : 0;
 	core(lst_pr, lst_dr, lst_dr->next ? 1 : 0);
-	system("leaks ft_ls ");
+	system("leaks ft_ls");
 	return (0);
 }
