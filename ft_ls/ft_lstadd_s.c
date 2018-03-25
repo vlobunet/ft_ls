@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-void	ft_lstadd_s(t_list **cur, char *new_lst)
+void	ft_lstadd_s(t_lst **cur, char *new_lst)
 {
 	int num;
 

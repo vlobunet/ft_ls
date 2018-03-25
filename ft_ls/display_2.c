@@ -18,11 +18,11 @@ void	print_date(time_t date)
 	free(str1);
 }
 
-void	print_error_el(t_list *lst_err)
+void	print_error_el(t_lst *lst_err, t_param pr)
 {
 	DIR		*d;
 	int num;
-
+	pr.G == 1 ? ft_putstr(C_ERROR) : 0;
 	if (lst_err->next)
 	{
 		while (ft_strcmp(lst_err->content, lst_err->next->content) < 0)
@@ -38,6 +38,7 @@ void	print_error_el(t_list *lst_err)
 	}
 	if ((d = opendir(lst_err->content)) == NULL && errno != ENOTDIR)
 				ft_error_name("ft_ls: ", lst_err->content, 0);
+	ft_putstr(C_RESET);
 	ft_lstdel_el(&lst_err);
 }
 

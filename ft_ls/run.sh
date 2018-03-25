@@ -1,5 +1,4 @@
 clear
-printf "\e[8;115;90;t"
 printf "                              \e[93mmake fclean && make \e[92m\n"
 echo -n "         "       
 make fclean && make 
@@ -17,3 +16,6 @@ printf "\e[93m/*                                                                
 printf "\e[93m/* ************************************************************************** */\e[0m\n"
 printf "\n"
 printf "\e[97m  ================================ ./ft_ls ===============================\e[39m  \n"
+./ft_ls -lR test test1 test2
+printf "\e[97m  ================================ ls ===============================\e[39m  \n"
+ls -lR test test1 test2

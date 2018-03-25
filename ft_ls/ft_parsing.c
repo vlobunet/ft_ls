@@ -23,7 +23,7 @@ void	ft_get_pr(t_param *lst_pr, char *param)
 	i = 1;
 	while (param[i])
 	{
-		if (ft_ch_sumb("1lRafgrtu", param[i]))
+		if (ft_ch_sumb("1lRafgrtuG", param[i]))
 		{
 			lst_pr->l = (param[i] == 'l' ? 1 : lst_pr->l);
 			lst_pr->R = (param[i] == 'R' ? 1 : lst_pr->R);
@@ -36,13 +36,14 @@ void	ft_get_pr(t_param *lst_pr, char *param)
 			lst_pr->a = (param[i] == 'f' ? 1 : lst_pr->a);
 			lst_pr->g = (param[i] == 'g' ? 1 : lst_pr->g);
 			lst_pr->l = (param[i] == '1' ? 0 : lst_pr->l);
+			lst_pr->G = (param[i] == 'G' ? 1 : lst_pr->G);
 		}
 		else error_arg(param[i]);
 		i++;
 	}
 }
 
-void	ft_parsing(int argc, char **argv, t_list **lst_dr, t_param *lst_pr)
+void	ft_parsing(int argc, char **argv, t_lst **lst_dr, t_param *lst_pr)
 {
 	int	i = 0;
 
@@ -55,6 +56,6 @@ void	ft_parsing(int argc, char **argv, t_list **lst_dr, t_param *lst_pr)
 	while (i < (argc - 1))
 	{
 		ft_lstadd_s(lst_dr, *argv);
-		ft_lstadd(lst_dr, ft_lstnew_el(i++, *argv++, *lst_pr, ""));
+		ft_lstad(lst_dr, ft_lstnew_el(i++, *argv++, *lst_pr, ""));
 	}
 }

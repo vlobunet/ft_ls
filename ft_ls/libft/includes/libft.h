@@ -33,16 +33,7 @@
 typedef struct		s_list
 {
 	char			*content;
-	char			*path;
 	int				num;
-	time_t			date;
-	mode_t			st_mode;
-	nlink_t			st_nlink;
-	uid_t			st_uid;
-	gid_t			st_gid;
-	off_t			st_size;
-	quad_t			st_blocks;
-	dev_t			st_rdev;
 	struct s_list	*prev;
 	struct s_list	*next;
 }					t_list;

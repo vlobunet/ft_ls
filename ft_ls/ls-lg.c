@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-void ls_long_file (t_list *lst, t_param p)
+void ls_long_file (t_lst *lst, t_param p)
 {
 	ft_access(lst);
 	print_lnk(lst);
@@ -12,13 +12,14 @@ void ls_long_file (t_list *lst, t_param p)
 	ft_putendl((*lst).content);
 }
 
-void go_to_start(t_list **lst)
+void go_to_start(t_lst **lst)
 {
 	while (strcmp((*lst)->content, (*lst)->next->content) < 0)
 		*lst = (*lst)->next;
 	*lst = (*lst)->next;
 }
-void	print_ls_lg(t_list *file, t_param lst_pr, int m)
+
+void	print_ls_lg(t_lst *file, t_param lst_pr, int m)
 {
 	t_size	size;
 	int num;
@@ -44,7 +45,7 @@ void	print_ls_lg(t_list *file, t_param lst_pr, int m)
 	ls_long_file(file, lst_pr);
 }
 
-void	print_ls_lgr(t_list *file, t_param lst_pr, int m)
+void	print_ls_lgr(t_lst *file, t_param lst_pr, int m)
 {
 	t_size	size;
 	int num;
