@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlobunet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/26 18:52:01 by vlobunet          #+#    #+#             */
+/*   Updated: 2018/03/26 18:52:03 by vlobunet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void	print_date(time_t date)
@@ -8,7 +20,8 @@ void	print_date(time_t date)
 	t = time(0);
 	str1 = ctime(&date);
 	if ((t - 15778463) > date || t < date)
-		str1 = ft_strjoin(ft_strjoin(ft_strsub(str1, 4, 6), "  "), ft_strsub(str1, 20, 4));
+		str1 = ft_strjoin(ft_strjoin(ft_strsub(str1, 4, 6), "  "), \
+		ft_strsub(str1, 20, 4));
 	else
 		str1 = ft_strsub(str1, 4, 12);
 	str1[12] = '\0';
@@ -21,23 +34,24 @@ void	print_date(time_t date)
 void	print_error_el(t_lst *lst_err, t_param pr)
 {
 	DIR		*d;
-	int num;
+	int		num;
+
 	pr.G == 1 ? ft_putstr(C_ERROR) : 0;
 	if (lst_err->next)
 	{
 		while (ft_strcmp(lst_err->content, lst_err->next->content) < 0)
-			lst_err =lst_err->next;
-		lst_err =lst_err->next;
+			lst_err = lst_err->next;
+		lst_err = lst_err->next;
 		num = lst_err->prev->num;
 		while (num != lst_err->num)
 		{
 			if ((d = opendir(lst_err->content)) == NULL && errno != ENOTDIR)
 				ft_error_name("ft_ls: ", lst_err->content, 0);
-			lst_err =lst_err->next;
+			lst_err = lst_err->next;
 		}
 	}
 	if ((d = opendir(lst_err->content)) == NULL && errno != ENOTDIR)
-				ft_error_name("ft_ls: ", lst_err->content, 0);
+		ft_error_name("ft_ls: ", lst_err->content, 0);
 	ft_putstr(C_RESET);
 	ft_lstdel_el(&lst_err);
 }

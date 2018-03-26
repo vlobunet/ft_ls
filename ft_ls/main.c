@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlobunet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/26 18:46:56 by vlobunet          #+#    #+#             */
+/*   Updated: 2018/03/26 18:46:58 by vlobunet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-int g_count = 1;
+int		g_count = 1;
 
-void ft_lstdel_el(t_lst **lst)
+void	ft_lstdel_el(t_lst **lst)
 {
-	int num;
-	t_lst *p;
+	int		num;
+	t_lst	*p;
 
 	num = ((*lst)->prev ? (*lst)->prev->num : (*lst)->num);
 	while (num != (*lst)->num)
@@ -48,25 +60,25 @@ t_lst	*ft_lstnew_el(int num, char *str, t_param p, char *path)
 	return (lst);
 }
 
-void    ft_lstad(t_lst **alst, t_lst *new_lst)
+void	ft_lstad(t_lst **alst, t_lst *new_lst)
 {
-    if (*alst)
-    {
-        new_lst->next = (*alst)->next;
-        new_lst->prev = *alst;
-        if (!(*alst)->prev)
-        {
-            (*alst)->prev = new_lst;
-            new_lst->next = *alst;
-            (*alst)->next = new_lst;
-        }
-        else
-        {
-            (*alst)->next->prev = new_lst;
-            (*alst)->next = new_lst;
-        }
-    }
-    *alst = new_lst;
+	if (*alst)
+	{
+		new_lst->next = (*alst)->next;
+		new_lst->prev = *alst;
+		if (!(*alst)->prev)
+		{
+			(*alst)->prev = new_lst;
+			new_lst->next = *alst;
+			(*alst)->next = new_lst;
+		}
+		else
+		{
+			(*alst)->next->prev = new_lst;
+			(*alst)->next = new_lst;
+		}
+	}
+	*alst = new_lst;
 }
 
 int		s1(char *content, t_lst **file, t_lst **dir, t_param lst_pr)
@@ -99,7 +111,7 @@ void	add_elem(char *content, t_lst **lst, int i, t_param lst_pr)
 	ft_lstad(lst, ft_lstnew_el(i++, content, lst_pr, ""));
 }
 
-int get_elem(t_lst **lst, struct dirent *file, char *path, t_param param)
+int		get_elem(t_lst **lst, struct dirent *file, char *path, t_param param)
 {
 	if (!file)
 		return (0);
@@ -113,12 +125,11 @@ int get_elem(t_lst **lst, struct dirent *file, char *path, t_param param)
 	return (1);
 }
 
-void print_dir_2(t_lst *lst_dir, t_lst **file, t_param param, int m)
+void	print_dir_2(t_lst *lst_dir, t_lst **file, t_param param, int m)
 {
 	DIR		*dir;
-
-	char *s;
-	char *a;
+	char	*s;
+	char	*a;
 
 	dir = opendir(lst_dir->content);
 	a = ft_strjoin(lst_dir->path, "/");
@@ -139,7 +150,7 @@ void print_dir_2(t_lst *lst_dir, t_lst **file, t_param param, int m)
 void	print_dir(t_lst *lst_dir, t_param param, int m)
 {
 	t_lst	*file;
-	int num;
+	int		num;
 
 	file = NULL;
 	if (lst_dir->next)
@@ -161,13 +172,13 @@ void	print_dir(t_lst *lst_dir, t_param param, int m)
 void	print_dirr(t_lst *lst_dir, t_param param, int m)
 {
 	t_lst	*file;
-	int num;
+	int		num;
 
 	file = NULL;
 	if (lst_dir->next)
 	{
 		go_to_start(&lst_dir);
-		lst_dir = lst_dir ->prev;
+		lst_dir = lst_dir->prev;
 		num = (lst_dir->prev ? lst_dir->next->num : lst_dir->num);
 		while (num != lst_dir->num)
 		{
@@ -198,7 +209,6 @@ void	core(t_param lst_pr, t_lst *lst_dr, int m)
 			add_elem(lst_dr->content, &lst_err, g_count++, lst_pr) : 0;
 		lst_dr = lst_dr->next;
 	}
-
 	!s1(lst_dr->content, &lst_file, &lst_dir, lst_pr) ? \
 		add_elem(lst_dr->content, &lst_err, g_count++, lst_pr) : 0;
 	lst_err ? print_error_el(lst_err, lst_pr) : 0;
@@ -220,6 +230,5 @@ int		main(int argc, char **argv)
 		ft_parsing(argc, argv, &lst_dr, &lst_pr);
 	!lst_dr ? ft_lstad(&lst_dr, ft_lstnew_el(1, ".", lst_pr, "")) : 0;
 	core(lst_pr, lst_dr, lst_dr->next ? 1 : 0);
-	// system("leaks ft_ls");
 	return (0);
 }

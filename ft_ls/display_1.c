@@ -1,5 +1,16 @@
-#include "ft_ls.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_1.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlobunet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/26 18:51:15 by vlobunet          #+#    #+#             */
+/*   Updated: 2018/03/26 18:51:17 by vlobunet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_ls.h"
 
 void	ft_access(t_lst *lst)
 {
@@ -25,7 +36,7 @@ void	ft_access(t_lst *lst)
 
 void	print_lnk(t_lst *lst, int x)
 {
-	int		n;
+	int	n;
 
 	n = x - ft_numlen(lst->st_nlink);
 	while (n-- > 0)
@@ -34,7 +45,7 @@ void	print_lnk(t_lst *lst, int x)
 	ft_putstr(" ");
 }
 
-void print_uid(t_lst *lst)
+void	print_uid(t_lst *lst)
 {
 	if (getpwuid((*lst).st_uid))
 		ft_putstr((getpwuid((*lst).st_uid))->pw_name);
@@ -42,9 +53,9 @@ void print_uid(t_lst *lst)
 		ft_putstr(ft_itoa((*lst).st_uid));
 }
 
-void print_gid(t_lst *lst)
+void	print_gid(t_lst *lst)
 {
-	int n;
+	int	n;
 
 	if (getgrgid((*lst).st_gid))
 	{
@@ -62,9 +73,9 @@ void print_gid(t_lst *lst)
 	}
 }
 
-void print_size(t_lst *lst, int x)
+void	print_size(t_lst *lst, int x)
 {
-	int n;
+	int	n;
 
 	n = x - ft_numlen((*lst).st_size) + 1;
 	while (n-- > 0)

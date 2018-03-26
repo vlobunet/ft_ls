@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_size.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlobunet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/26 19:06:55 by vlobunet          #+#    #+#             */
+/*   Updated: 2018/03/26 19:06:56 by vlobunet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-
-int ft_numlen(int num)
+int		ft_numlen(int num)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (num > 9)
@@ -29,7 +40,6 @@ void	get_size_errorhandling(t_size *size, t_lst *cur)
 
 void	get_size_quick(t_size *size, t_lst *lst)
 {
-
 	size->linkspace = ft_numlen(lst->st_nlink) > \
 		size->linkspace ? ft_numlen(lst->st_nlink) \
 		: size->linkspace;
@@ -45,7 +55,7 @@ void	get_size_quick(t_size *size, t_lst *lst)
 t_size	get_size(t_param arg, t_lst *lst)
 {
 	t_size	size;
-	int num;
+	int		num;
 
 	size = (t_size){0, 0, 0, 0, 0, 0, 0};
 	if (lst->prev)

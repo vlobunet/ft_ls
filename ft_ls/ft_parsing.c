@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlobunet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/26 19:04:34 by vlobunet          #+#    #+#             */
+/*   Updated: 2018/03/26 19:04:35 by vlobunet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void	error_arg(char arg)
@@ -19,7 +31,7 @@ int		ft_ch_sumb(char *str, char s)
 void	ft_get_pr(t_param *lst_pr, char *param)
 {
 	int		i;
- 
+
 	i = 1;
 	while (param[i])
 	{
@@ -38,15 +50,17 @@ void	ft_get_pr(t_param *lst_pr, char *param)
 			lst_pr->l = (param[i] == '1' ? 0 : lst_pr->l);
 			lst_pr->G = (param[i] == 'G' ? 1 : lst_pr->G);
 		}
-		else error_arg(param[i]);
+		else
+			error_arg(param[i]);
 		i++;
 	}
 }
 
 void	ft_parsing(int argc, char **argv, t_lst **lst_dr, t_param *lst_pr)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	argv++;
 	while (i < (argc - 1) && (*argv)[0] == '-' && (*argv)[1])
 	{
