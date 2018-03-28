@@ -50,6 +50,8 @@ void	get_size_quick(t_size *size, t_lst *lst)
 	size->size = ft_numlen(lst->st_size) > size->size ? \
 		ft_numlen(lst->st_size) : size->size;
 	size->total += lst->st_blocks;
+	size->name = (int)ft_strlen(lst->content) > size->name ? \
+		ft_strlen(lst->content) : size->name;
 }
 
 t_size	get_size(t_param arg, t_lst *lst)
@@ -57,7 +59,7 @@ t_size	get_size(t_param arg, t_lst *lst)
 	t_size	size;
 	int		num;
 
-	size = (t_size){0, 0, 0, 0, 0, 0, 0};
+	size = (t_size){0, 0, 0, 0, 0, 0, 0, 0};
 	if (lst->prev)
 	{
 		num = lst->prev->num;

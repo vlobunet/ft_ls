@@ -57,14 +57,15 @@ typedef struct		s_lst
 typedef struct		s_param
 {
 	int				l;
-	int				R;
+	int				re;
 	int				a;
 	int				r;
 	int				t;
 	int				u;
 	int				f;
 	int				g;
-	int				G;
+	int				color;
+	int				o;
 }					t_param;
 
 typedef struct		s_size
@@ -76,6 +77,7 @@ typedef struct		s_size
 	int				linkspace;
 	int				min;
 	int				maj;
+	int				name;
 }					t_size;
 
 void				ft_ls(const char *dir_name);
@@ -105,4 +107,25 @@ int					get_elem(t_lst **lst, struct dirent *file, \
 					char *path, t_param param);
 void				ft_lstad(t_lst **alst, t_lst *new_lst);
 void				ft_print_recurs1r(t_lst *file, t_param lst_pr);
+void				ft_timesort(t_lst *lst_f, t_param lst_p);
+void				error_arg(char arg);
+void				add_elem(char *content, t_lst **lst, int i, t_param lst_pr);
+int					get_elem(t_lst **lst, struct dirent *file, \
+					char *path, t_param param);
+void				print_dir_2(t_lst *lst_dir, t_lst **file, \
+					t_param param, int m);
+void				print_dir(t_lst *lst_dir, t_param param, int m);
+void				print_dirr(t_lst *lst_dir, t_param param, int m);
+void				ft_lst_cpy(t_lst **src, t_lst *cpy);
+void				ft_swap_el(t_lst **a, t_lst **b);
+void				ft_timesort(t_lst *lst_f, t_param lst_p);
+void				ft_lstdel_el(t_lst **lst);
+t_lst				*ft_lstnew_el(int num, char *str, t_param p, char *path);
+void				ft_lstad(t_lst **alst, t_lst *new_lst);
+void				ft_lstadd_s(t_lst **cur, char *new_lst);
+void				print_ls_lg(t_lst *file, t_param lst_pr, int m);
+void				print_ls_lgr(t_lst *file, t_param lst_pr, int m);
+void				print_cut(t_lst *file, t_param lst_pr);
+void				print_cutr(t_lst *file, t_param lst_pr);
+void				print_fie(t_lst *file, t_param lst_pr, int i);
 #endif

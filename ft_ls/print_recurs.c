@@ -55,7 +55,6 @@ void	ft_print_recurs1(t_lst *file, t_param lst_pr)
 
 	if (file->prev)
 	{
-		go_to_start(&file);
 		num = file->prev->num;
 		while (num != file->num)
 		{

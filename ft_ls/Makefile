@@ -12,8 +12,10 @@
 
 NAME	= ft_ls
 SRCS	=	main.c ft_parsing.c \
-			ft_lstadd_s.c get_size.c display_1.c \
-			display_2.c display_3.c print_recurs.c
+			get_size.c display_1.c \
+			display_2.c display_3.c \
+			display_4.c print_recurs.c \
+			print_dir.c time.c lst_func.c
 OBJS	= $(SRCS:.c=.o)
 FLAGS	= -Wall -Wextra -Werror
 
